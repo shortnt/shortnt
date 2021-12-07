@@ -1,0 +1,57 @@
+/* Below animations are fore modal created using React-Modal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.ReactModal__Overlay {
+    transition: transform 300ms ease-in-out;
+    transition-delay: 100ms;
+    transform: scale(0);
+    /* transform: translateY(-150%); */
+}
+
+.ReactModal__Overlay--after-open{
+    transform: scale(1);
+    /* transform: translateY(0%); */
+}
+
+.ReactModal__Overlay--before-close{
+    transform: scale(0);
+    /* transform: translateY(-150%); */
+}
+
+.mymove {
+    animation-name : mymove;
+    animation-iteration-count : infinite;
+    animation-direction : alternate;
+    animation-duration : 2s;
+}
+
+@keyframes mymove {
+    from {transform: translateY(0px);}
+    to {transform: translateY(15px);}
+}
+
+.box {
+    width: 75vw;
+    height: 60vh;
+    border: 5px solid #3182ce;
+    text-align: center;
+    overflow: scroll;
+}
+
+.format {
+    width: 20vw;
+}
+
+.intext {
+    width: 55vw;
+    border: 2px solid #3182ce;
+    border-radius: 3px;
+    height: 20vh;
+}
+
+.modal {
+    overflow-y: scroll;
+}
