@@ -56,7 +56,7 @@ const SubmitButton = styled.button`
 const Login =  ({
   logoLinkUrl = "#",
   illustrationImageSrc = illustration,
-  headingText = "Sign In To ShortNt",
+  headingText = "Log In To ShortNt",
   socialButtons = [
     {
       iconImageSrc: googleIconImageSrc,
