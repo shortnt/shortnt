@@ -21,8 +21,13 @@ def query(payload):
 
 # Create your views here.
 @csrf_exempt
-def quickSummaryApi(request,id=0):
+def quickSummaryApi(request,id=None):
     if request.method=='GET':
+        if id:
+            departments = QuickSummary.objects.get(Id=id)
+            departments_serializer = QuickSerializer(departments)
+            return JsonResponse(departments_serializer.data, safe=False)
+
         departments = QuickSummary.objects.all()
         departments_serializer = QuickSerializer(departments, many=True)
         return JsonResponse(departments_serializer.data, safe=False)
