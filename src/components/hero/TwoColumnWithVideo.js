@@ -296,10 +296,10 @@ export default ({
            <>
            
            <br></br>
-           <Typography variant="h6" component="h5">
-             Summary : 
-             </Typography>
-             <p>{showText}</p>
+//            <Typography variant="h6" component="h5">
+//              Summary : 
+//              </Typography>
+//              <p>{showText}</p>
            </>
            }
            </>
