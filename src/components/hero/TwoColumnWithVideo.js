@@ -280,12 +280,16 @@ export default ({
         <div>
           {input === ''?null: input === 'Text'?
           <>
-          <form onSubmit={getSummary}>
-           <textarea className="intext" value={inputText} onChange={textChange}></textarea>
+          <div className="parent">
+            <div className="child1">
+           <textarea className="intext" value={inputText} onChange={textChange} placeholder="Type/Paste the text here....."></textarea>
+            </div>
+            <div className="child2">
+            <textarea className="intext" value={showText} placeholder="Summary....."></textarea>
+            </div>
+           </div>
            <br></br>
-
-           <PrimaryButton as="button" type='submit'>Get Summary</PrimaryButton>
-           </form>
+           <PrimaryButton as="button" onClick={getSummary}>Get Summary</PrimaryButton>
            <br></br>
            {inputText === ''?null:
            
