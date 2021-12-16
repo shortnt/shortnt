@@ -95,6 +95,7 @@ export default ({
   const [inputText,setInputText] = useState('');
   const [showText, setShowText] = useState('');
   const [audioSrc, setAudioSrc] = useState("");
+ 
 
   const handleChange = (event) => {
     setInput(event.target.value);
@@ -114,17 +115,11 @@ export default ({
   //Code updated
 
 //   useEffect(() => {
-//     // POST request using fetch inside useEffect React hook
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: {'Accept':'application/json', 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ Id : null,Input:'inpuuu',Output:'outttt' })
-//     };
-//     fetch(process.env.REACT_APP_API+'quicksummary', requestOptions)
-//         .then(response => response.json())
-//         .then(data => console.log(data)).catch((error)=>console.log(error));
-        
-// // empty dependency array means this effect will only run once (like componentDidMount in classes)
+//           fetch(process.env.REACT_APP_API+'quicksummary/' + num)
+//           .then((res)=>res.json())
+//           .then((data) => console.log(data))
+//           .catch((error)=>console.log(error));
+
 // }, []);
 
 // handleSubmit(event){
@@ -170,17 +165,25 @@ export default ({
                 Id:null,
                 Input:inputText,
                 // Output:event.target.Output.value
-                
             })
         })
         .then(res=>res.json())
         .then((result)=>{
             alert(result);
+            fetch(process.env.REACT_APP_API+'quicksummary/')
+            .then((res) => res.json())
+            .then((data) => {
+            fetch(process.env.REACT_APP_API+'quicksummary/' + data.length)
+          .then((res)=>res.json())
+          .then((data) => setShowText(data.Output))
+          .catch((error)=>console.log(error));
+            })
+            .catch((error) => console.log(error));
         },
         (error)=>{
-            alert('Failed');
+            alert(error);
         })
-    setShowText(inputText)
+    // setShowText(inputText)
     console.log(inputText);
 
   }
@@ -296,10 +299,10 @@ export default ({
            <>
            
            <br></br>
-//            <Typography variant="h6" component="h5">
-//              Summary : 
-//              </Typography>
-//              <p>{showText}</p>
+           {/* <Typography variant="h6" component="h5">
+             Summary : 
+             </Typography>
+             <p>{showText}</p> */}
            </>
            }
            </>
@@ -339,4 +342,3 @@ export default ({
     </>
   );
 };
-
