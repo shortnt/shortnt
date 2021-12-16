@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 //eslint-disable-next-line
@@ -20,6 +20,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+
+
 // import ReactAudioPlayer from 'react-audio-player';
 
 
@@ -100,15 +102,87 @@ export default ({
 
   const textChange = (event) => {
     setInputText(event.target.value);
-  }
+  };
 
   const audioInput = (event) => {
     setAudioSrc(event.target.value);
-  }
+  };
 
-  const getSummary = () => {
+
+
+
+  //Code updated
+
+//   useEffect(() => {
+//     // POST request using fetch inside useEffect React hook
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: {'Accept':'application/json', 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ Id : null,Input:'inpuuu',Output:'outttt' })
+//     };
+//     fetch(process.env.REACT_APP_API+'quicksummary', requestOptions)
+//         .then(response => response.json())
+//         .then(data => console.log(data)).catch((error)=>console.log(error));
+        
+// // empty dependency array means this effect will only run once (like componentDidMount in classes)
+// }, []);
+
+// handleSubmit(event){
+//     event.preventDefault();
+//     fetch(process.env.REACT_APP_API+'department',{
+//         method:'POST',
+//         headers:{
+//             'Accept':'application/json',
+//             'Content-Type':'application/json'
+//         },
+//         body:JSON.stringify({
+//             DepartmentId:null,
+//             DepartmentName:event.target.DepartmentName.value,
+//             summ:event.target.summ.value
+            
+//         })
+//     })
+//     .then(res=>res.json())
+//     .then((result)=>{
+//         alert(result);
+//     },
+//     (error)=>{
+//         alert('Failed');
+//     })
+// }
+
+
+  
+  //close
+
+
+
+  const getSummary = (event) => {
+    event.preventDefault();
+      console.log("11111111")
+        fetch(process.env.REACT_APP_API+'quicksummary/',{
+            method:'POST',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                Id:null,
+                Input:inputText,
+                // Output:event.target.Output.value
+                
+            })
+        })
+        .then(res=>res.json())
+        .then((result)=>{
+            alert(result);
+        },
+        (error)=>{
+            alert('Failed');
+        })
     setShowText(inputText)
     console.log(inputText);
+
   }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -120,6 +194,7 @@ export default ({
 
 
   return (
+    
     <>
       <Header />
       <Container >
@@ -205,12 +280,17 @@ export default ({
         <div>
           {input === ''?null: input === 'Text'?
           <>
+          <form onSubmit={getSummary}>
            <textarea className="intext" value={inputText} onChange={textChange}></textarea>
            <br></br>
-           <PrimaryButton as="button" onClick={getSummary}>Get Summary</PrimaryButton>
+
+           <PrimaryButton as="button" type='submit'>Get Summary</PrimaryButton>
+           </form>
            <br></br>
            {inputText === ''?null:
+           
            <>
+           
            <br></br>
            <Typography variant="h6" component="h5">
              Summary : 
@@ -255,3 +335,4 @@ export default ({
     </>
   );
 };
+
