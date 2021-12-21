@@ -5,6 +5,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import TwoColumnWithVideo from 'components/hero/TwoColumnWithVideo'
 import Login from 'components/auth/Login.js';
 import SignUp from 'components/auth/SignUp.js';
+import Home from 'components/auth/Home';
 
 /*
  * This is the entry point component of this project. You can change the below exported default App component to any of
@@ -49,6 +50,8 @@ const App = () => {
         <Route exact path="/login" component={Login} />
 
         <Route exact path="/signup" component={SignUp} />
+          
+          <Route exact path="/home" component={Home} />
 
 
       </Switch>
