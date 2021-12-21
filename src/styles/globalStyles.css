@@ -84,3 +84,14 @@
         width: 100%;
     }
 }
+
+.gtext {
+    color: black;
+    letter-spacing: 1.5px;
+    word-spacing: 2px;
+    font-weight: bold;
+}
+
+.gbtn {
+    
+}
