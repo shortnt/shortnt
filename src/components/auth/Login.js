@@ -1,14 +1,15 @@
 import React from "react";
+import { useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
-import illustration from "images/login-illustration.svg";
 import logo from "images/logo.svg";
-import googleIconImageSrc from "images/google-icon.png";
-import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
+import GoogleLogin from "react-google-login";
+import Home from 'components/auth/Home';
+// import FacebookLogin from "react-facebook-login";
 
 const Container = tw(ContainerBase)`min-h-screen bg-blue-600 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -20,18 +21,18 @@ const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
 const FormContainer = tw.div`w-full flex-1 mt-8`;
 
 const SocialButtonsContainer = tw.div`flex flex-col items-center`;
-const SocialButton = styled.a`
-  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
-  .iconContainer {
-    ${tw`bg-white p-2 rounded-full`}
-  }
-  .icon {
-    ${tw`w-4`}
-  }
-  .text {
-    ${tw`ml-4`}
-  }
-`;
+// const SocialButton = styled.a`
+//   ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-white hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
+//   .iconContainer {
+//     ${tw`bg-white p-2 rounded-full`}
+//   }
+//   .icon {
+//     ${tw`w-4`}
+//   }
+//   .text {
+//     ${tw`ml-4`}
+//   }
+// `;
 
 const DividerTextContainer = tw.div`my-12 border-b text-center relative`;
 const DividerText = tw.div`leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform -translate-y-1/2 absolute inset-x-0 top-1/2 bg-transparent`;
@@ -53,39 +54,139 @@ const SubmitButton = styled.button`
 //   ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
 // `;
 
-const Login =  ({
-  logoLinkUrl = "#",
-  illustrationImageSrc = illustration,
-  headingText = "Log In To ShortNt",
-  socialButtons = [
-    {
-      iconImageSrc: googleIconImageSrc,
-      text: "Sign In With Google",
-      url: "https://google.com"
-    },
-    {
-      iconImageSrc: twitterIconImageSrc,
-      text: "Sign In With Twitter",
-      url: "https://twitter.com"
-    }
-  ],
-  submitButtonText = "Sign In",
-  SubmitButtonIcon = LoginIcon,
-  forgotPasswordUrl = "#",
-  signupUrl = "#",
 
-}) => (
+
+
+
+const Login =  (
+  // logoLinkUrl = "#",
+  // illustrationImageSrc = illustration,
+  // headingText = "Sign In To ShortNt",
+  // socialButtons = [
+  //   {
+  //     iconImageSrc: googleIconImageSrc,
+  //     text: "Sign In With Google",
+  //     url: "https://google.com"
+  //   },
+  //   {
+  //     iconImageSrc: twitterIconImageSrc,
+  //     text: "Sign In With Twitter",
+  //     url: "https://twitter.com"
+  //   }
+  // ],
+  // submitButtonText = "Sign In",
+  // SubmitButtonIcon = LoginIcon,
+  // forgotPasswordUrl = "#",
+  // signupUrl = "#",
+
+) => {
+const [loginData, setLoginData] = useState(
+  localStorage.getItem('loginData') ? 
+  JSON.parse(localStorage.getItem('loginData'))
+  : null
+);
+const [cred,setCred] = useState({
+  email:"",
+  password:""
+})
+
+const [submit,setSubmit] = useState({
+  email:"",
+  password:""
+})
+
+const handleFailure = () => {
+  alert("Failure");
+}
+
+const handleChange = (event) => {
+  const name = event.target.name;
+  const value = event.target.value;
+  setCred((prev) => {
+      return ({
+        ...prev,
+        [name]:value
+      });
+  });
+}
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  setSubmit(cred);
+  const res = await fetch('http://localhost:8000/loginuser/',{
+    method : 'POST',
+    body : JSON.stringify(cred),
+    headers : {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  const data1 = await res.json();
+  if (data1 === "Failed"){
+    alert("Invalid Credentials !!");
+    setLoginData(null);
+  }else {
+    setLoginData(data1);
+    localStorage.setItem('loginData',JSON.stringify(data1));
+  }
+
+  setCred({
+    username:"",
+    email:"",
+    password:""
+  })
+
+}
+
+const handleSuccess = async (data) => {
+  console.log(data.profileObj.email);
+  const res = await fetch('http://localhost:8000/socialuser/',{
+    method : 'POST',
+    body : JSON.stringify({
+      uid:null,
+      username:data.profileObj.name,
+      email:data.profileObj.email,
+      image: data.profileObj.imageUrl
+    }),
+    headers : {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  const data1 = await res.json();
+  setLoginData(data1);
+  localStorage.setItem('loginData',JSON.stringify(data1));
+  console.log(localStorage.getItem('loginData'))
+}
+
+// const handleLogout = () => {
+//   localStorage.removeItem('loginData');
+//   setLoginData(null);
+// }
+  return (
   <AnimationRevealPage>
     <Container>
       <Content>
         <MainContainer>
-          <LogoLink href={logoLinkUrl}>
+        {
+                  loginData ? (
+                    // <div>
+                    //   <h3>You logged in as {loginData}</h3>
+                    //   <button onClick={handleLogout}>Logout</button>
+                    // </div>
+                    <>
+                    {window.location.href="/home"}
+                    
+                    <Home  />
+                    </>
+                  ) : <>
+          <LogoLink href="/">
             <LogoImage src={logo} />
           </LogoLink>
           <MainContent>
-            <Heading>{headingText}</Heading>
+            <Heading>Sign In To ShortNt</Heading>
             <FormContainer>
-              <SocialButtonsContainer>
+              {/* <SocialButtonsContainer>
                 {socialButtons.map((socialButton, index) => (
                   <SocialButton key={index} href={socialButton.url}>
                     <span className="iconContainer">
@@ -94,31 +195,64 @@ const Login =  ({
                     <span className="text">{socialButton.text}</span>
                   </SocialButton>
                 ))}
+              </SocialButtonsContainer> */}
+              <SocialButtonsContainer>
+
+               
+                <GoogleLogin
+                className = "gbtn"
+                clientId = {process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                // buttonText="Sign In with Google"
+                onSuccess={handleSuccess}
+                onFailure={handleFailure}
+                cookiePolicy={'single_host_origin'}
+                
+                ><span className="gtext">Sign In with Google</span>
+                </GoogleLogin>
+
+                {/* <FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    // callback={responseFacebook}
+    // cssClass="my-facebook-button-class"
+    icon="fa-facebook"
+  /> */}
+                
+                {/* <SocialButton>
+                    <span className="iconContainer">
+                      <img src={twitterIconImageSrc} className="icon" alt=""/>
+                    </span>
+                    <span className="text">Sign In With Twitter</span>
+                  </SocialButton> */}
               </SocialButtonsContainer>
               <DividerTextContainer>
                 <DividerText>Or Sign in with your e-mail</DividerText>
               </DividerTextContainer>
-              <Form>
-                <Input type="email" placeholder="Email" />
-                <Input type="password" placeholder="Password" />
+              <Form onSubmit={handleSubmit}>
+                <Input type="email" placeholder="Email" value={cred.email} name="email" onChange={handleChange} required/>
+                <Input type="password" placeholder="Password" value={cred.password} name="password" onChange={handleChange} required/>
                 <SubmitButton type="submit">
-                  <SubmitButtonIcon className="icon" />
-                  <span className="text">{submitButtonText}</span>
+                  <LoginIcon className="icon" />
+                  <span className="text">Sign In</span>
                 </SubmitButton>
               </Form>
               <p tw="mt-6 text-xs text-gray-600 text-center">
-                <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
+                <a href="/" tw="border-b border-gray-500 border-dotted">
                   Forgot Password ?
                 </a>
               </p>
               <p tw="mt-8 text-sm text-gray-600 text-center">
                 Dont have an account?{" "}
-                <a href={signupUrl} tw="border-b border-gray-500 border-dotted">
+                <a href="/signup" tw="border-b border-gray-500 border-dotted">
                   Sign Up
                 </a>
               </p>
             </FormContainer>
+
           </MainContent>
+          </>
+            }
         </MainContainer>
         {/* <IllustrationContainer>
           <IllustrationImage imageSrc={illustrationImageSrc} />
@@ -127,5 +261,6 @@ const Login =  ({
     </Container>
   </AnimationRevealPage>
 );
+      }
 
 export default Login;
