@@ -1,0 +1,95 @@
+/* Below animations are fore modal created using React-Modal */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.ReactModal__Overlay {
+    transition: transform 300ms ease-in-out;
+    transition-delay: 100ms;
+    transform: scale(0);
+    /* transform: translateY(-150%); */
+}
+
+.ReactModal__Overlay--after-open{
+    transform: scale(1);
+    /* transform: translateY(0%); */
+}
+
+.ReactModal__Overlay--before-close{
+    transform: scale(0);
+    /* transform: translateY(-150%); */
+}
+
+.mymove {
+    animation-name : mymove;
+    animation-iteration-count : infinite;
+    animation-direction : alternate;
+    animation-duration : 2s;
+}
+
+@keyframes mymove {
+    from {transform: translateY(0px);}
+    to {transform: translateY(15px);}
+}
+
+.box {
+    width: 80vw;
+    /* height: 60vh; */
+    border: 5px solid #3182ce;
+    text-align: center;
+    overflow: scroll;
+}
+
+.format {
+    width: 20vw;
+}
+
+.intext {
+    width: 90%;
+    border: 2px solid #3182ce;
+    border-radius: 3px;
+    height: 25vh;
+    margin-top: 5px;
+}
+
+.modal {
+    overflow-y: scroll;
+}
+
+.parent {
+    display: flex;
+    flex-direction: row;
+}
+
+.child1 {
+    width: 50%;
+    /* background-color: green; */
+   
+}
+
+.child2 {
+    width: 50%;
+    /* background-color: red; */
+}
+
+@media (max-width: 800px) {
+    .parent {
+      flex-direction: column;
+    }
+    .child1 {
+        width: 100%;
+    }
+    .child2 {
+        width: 100%;
+    }
+}
+
+.gtext {
+    color: black;
+    letter-spacing: 1.5px;
+    word-spacing: 2px;
+    font-weight: bold;
+}
+
