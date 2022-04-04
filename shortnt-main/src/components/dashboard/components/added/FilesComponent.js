@@ -216,7 +216,9 @@ const FilesComponent = (props) => {
         fetch(process.env.REACT_APP_API + 'files/')
           .then((res) => res.json())
           .then((data) => {
-            fetch(process.env.REACT_APP_API + 'files/' + data.length)
+
+            // console.log("data "+data[data.length-1].file_id)
+            fetch(process.env.REACT_APP_API + 'files/' +data[data.length-1].file_id)
               .then((res) => res.json())
               .then((data) => {
                 setShowText(data[0].output_text)
@@ -261,7 +263,7 @@ const FilesComponent = (props) => {
         fetch(process.env.REACT_APP_API + 'files/')
           .then((res) => res.json())
           .then((data) => {
-            fetch(process.env.REACT_APP_API + 'files/' + data.length)
+            fetch(process.env.REACT_APP_API + 'files/' + data[data.length-1].file_id)
               .then((res) => res.json())
               .then((data) => {
                 setShow(true)
@@ -618,7 +620,7 @@ const FilesComponent = (props) => {
               }
             </div>
             <br></br>
-            <PrimaryButton as="button" onClick={() => { setShowFile(false) }}>Close File</PrimaryButton>
+            <PrimaryButton as="button" onClick={() => { setShowFile(false);setAudioShow(false) }}>Close File</PrimaryButton>
             <br></br>
           </Box>
         </Modal>

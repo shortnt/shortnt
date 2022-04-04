@@ -365,7 +365,7 @@ def createFile(request,id=None):
         if department_data['input_text_or_audio']=="Text":
             
             u_input=department_data['input_text']
-            if(len(u_input)>1000):
+            if(len(u_input)>800):
                 output1 = query({
                 "inputs":u_input,
                 # "parameters":{"min_length":minL,"max_length":maxL},

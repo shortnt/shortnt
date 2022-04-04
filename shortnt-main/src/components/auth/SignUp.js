@@ -148,7 +148,7 @@ const SignUp =  () => {
                     //   <button onClick={handleLogout}>Logout</button>
                     // </div>
                     <>
-                    {window.location.href="/home"}
+                    {window.location.href="/dash"}
                     
                     <Home  />
                     </>
