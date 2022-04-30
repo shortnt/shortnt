@@ -15,6 +15,7 @@ import AddFolderModal from './AddFolderModal'
 import Add from '@material-ui/icons/Add';
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
+
 import styled from "styled-components";
 import tw from "twin.macro";
 //eslint-disable-next-line
@@ -151,8 +152,12 @@ const FilesComponent = (props) => {
     console.log(event.target.value)
   };
   const handleFileChange = (event) => {
-    setFilename(event.target.value);
-    console.log(event.target.value)
+    if(event.target.value.length>15){
+      alert("length exceded")
+    }
+    else{
+      setFilename(event.target.value);
+    }
   };
 
   const audioInput = (event) => {
@@ -497,16 +502,18 @@ const FilesComponent = (props) => {
         className="DashboardPage"
         breadcrumbs={[{ name: ' ' +title, active: true }]}
       >
-                <input type="text"
-                  placeholder="Search.."
-                  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}
+              <h1 style={{ textAlign: "center" }}>{title}</h1>
+                 <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+               <TextField id="standard-basic" label="Search..." variant="standard" 
                   onChange={(event)=>{
                       setsearchTerm(event.target.value)
                   }} 
+                 sx={{width: "300px"}}
                />
+               </div>
                <br/>
 
-        <h1 style={{ textAlign: "center" }}>{title}</h1>
+
 
 
         <div style={{ display: "flex" }}>
@@ -520,14 +527,32 @@ const FilesComponent = (props) => {
 >
       <AddFileModal/>
 </button>  */}
-          <button
+          {/* <button
             style={{
               padding: "10px", marginLeft: "auto", marginTop: 'auto', marginRight: '30px', borderRadius: '5px', backgroundColor: '#3182ce',
               color: "white", position: 'fixed',
               bottom: '1%', right: '1%'
             }}
             onClick={handleOpen}
-          >Add File </button>
+          >Add File </button> */}
+          <button
+      style={{ marginLeft: "auto" ,
+       backgroundColor:"crimson",
+       marginTop:'auto',
+       marginRight:'10px', 
+       borderRadius:'50%',
+       position:'fixed',
+         bottom:'1%',
+         right:'1%',
+         height : '70px',
+         width: "70px",
+        fontSize: "30px",
+         color: "white" 
+        }}
+        onClick={handleOpen}
+    >
+    +
+    </button>
         </div>
 
 

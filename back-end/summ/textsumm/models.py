@@ -25,7 +25,7 @@ class SocialUserDetails(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=1000,default="null")
     email = models.CharField(max_length=100)
-    image = models.CharField(max_length=1000,default="https://i.picsum.photos/id/509/200/200.jpg?hmac=F3VucjvZ_2eEx_ObPM7NJ_Ymq5jESSGCuXo_8japTZc")
+    image = models.CharField(max_length=1000,default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
 
 class ManualUserDetails(models.Model):

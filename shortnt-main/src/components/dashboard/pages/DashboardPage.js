@@ -9,6 +9,7 @@ import { IconWidget, NumberWidget } from 'components/dashboard/components/Widget
 import { getStackLineChart, stackLineChartOptions } from 'components/dashboard/demos/chartjs';
 import AddFolderModal from '../components/added/AddFolderModal'
 import FilesComponent from '../components/added/FilesComponent';
+import TextField from '@mui/material/TextField';
 
 import {
   avatarsData,
@@ -133,7 +134,7 @@ const DashboardPage = () => {
     .catch((err)=> console.log(err))
 
   
-},[len]);
+},[len,userData]);
     const buttonClicked = (event,data) =>{
       event.preventDefault();
       console.log(data);
@@ -209,7 +210,7 @@ const DashboardPage = () => {
         // title="ShortNt Dashboard"
         breadcrumbs={[{ name: '', active: true }]}
       >
-        <div  style={{display: 'flex',  justifyContent:'center', alignItems:'center',border: '10px solid blue'}}>
+        {/* <div  style={{display: 'flex',  justifyContent:'center', alignItems:'center',border: '10px solid blue'}}>
           <input type="text"
                   placeholder="Search.."
                   style={{border: '2px solid red', height:"40px"}}
@@ -217,7 +218,17 @@ const DashboardPage = () => {
                       setsearchTerm(event.target.value)
                   }} 
                />
+               </div> */}
+               <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+               <TextField id="standard-basic" label="Search..." variant="outlined" 
+                  onChange={(event)=>{
+                      setsearchTerm(event.target.value)
+                  }} 
+                 sx={{width: "300px"}}
+               />
                </div>
+           
+
                <br/>
      <Row>
        {console.log(userData)}
@@ -241,14 +252,15 @@ const DashboardPage = () => {
             <Card
               style={{
                 height: 200,
-                backgroundColor : '#3182ce',
+                width: 300,
+                backgroundColor : '#4299E1',
                 
               }}
             >
               <CardBody className="d-flex flex-column justify-content-start align-items-start">
                 {/* <CardTitle>{userData[index].folder_id}</CardTitle> */}
                 <CardText>{val.folder_title}</CardText>
-                <CardText>{val.date_of_folder}</CardText>
+                <CardText>{val.date_of_folder.substring(0,10)}</CardText>
 
               </CardBody>
 
@@ -264,11 +276,11 @@ const DashboardPage = () => {
                   DELETE
                 </Button>
                 </div>
-                <div>
+                {/* <div>
                 <Button outline color="light"  onClick={(event)=> {starFolder(event,val)}} >
                   STAR
                 </Button>
-                </div>
+                </div> */}
                 {/* {state ?
           //  <FilesComponent id="This" text="This is text" /> 
           <Home id="myhome" />:
@@ -287,11 +299,12 @@ const DashboardPage = () => {
        backgroundColor:"crimson",
        marginTop:'auto',
        marginRight:'10px', 
-       borderRadius:'18px',
+       borderRadius:'50%',
        position:'fixed',
          bottom:'1%',
          right:'1%',
-         height : '50px',
+         height : '70px',
+         width: "70px"
         }}
     >
            <AddFolderModal data={userData}></AddFolderModal>

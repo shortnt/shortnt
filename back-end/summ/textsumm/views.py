@@ -391,9 +391,9 @@ def manualDetailsApi(request,id=None):
 def loginCred(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        isEmailExists = ManualUserDetails.objects.filter(email=data['email']).exists()
+        isEmailExists = SocialUserDetails.objects.filter(email=data['email']).exists()
         if(isEmailExists):
-            obj = ManualUserDetails.objects.get(email=data['email'])
+            obj = SocialUserDetails.objects.get(email=data['email'])
             if verify_password(data['password'],obj.password):
                 return JsonResponse(data['email'],safe=False)
             return JsonResponse("Failed",safe=False)

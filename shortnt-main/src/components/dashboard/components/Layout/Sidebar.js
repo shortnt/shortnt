@@ -175,48 +175,48 @@ const Sidebar = () => {
   // },[]);
   
 
-  if(tr===true){
-    window.scrollTo(0, 0);
-    let s = '';
-    for(let i=0;i<log.length;i++){
-      if(i==0 || i==log.length-1){
-        continue;
-      }
-      s+=log.charAt(i);
+  // if(tr===true){
+  //   window.scrollTo(0, 0);
+  //   let s = '';
+  //   for(let i=0;i<log.length;i++){
+  //     if(i==0 || i==log.length-1){
+  //       continue;
+  //     }
+  //     s+=log.charAt(i);
 
-    }
+  //   }
 
-    fetch(process.env.REACT_APP_API+"socialuser/"+s)
-    .then((res)=>res.json())
-    .then((data) => {
-      fetch(process.env.REACT_APP_API+"folders/"+data.uid)
-      .then((res)=>res.json())
-      .then((data) => {
-        setUserData(data)
-        setLen(data.length)
-        console.log("testing....")
-        settr(false)
-        console.log(data)
-        navItems = [];
-        let i1=data.length-1;
-        // while(c>)
-        for(var c = 0; c <5; c++)
-        {
-          navItems.push({
-            to: '/dash/files/'+userData[i1].folder_title+'/'+userData[i1].folder_id ,
-            name: userData[i1].folder_title,
-            exact:true,
-            Icon: numbers[i1],
-            });
-            console.log(navItems[i1].to)
-            i1--;
+  //   fetch(process.env.REACT_APP_API+"socialuser/"+s)
+  //   .then((res)=>res.json())
+  //   .then((data) => {
+  //     fetch(process.env.REACT_APP_API+"folders/"+data.uid)
+  //     .then((res)=>res.json())
+  //     .then((data) => {
+  //       setUserData(data)
+  //       setLen(data.length)
+  //       console.log("testing....")
+  //       settr(false)
+  //       console.log(data)
+  //       navItems = [];
+  //       let i1=data.length-1;
+  //       // while(c>)
+  //       for(var c = 0; c <5; c++)
+  //       {
+  //         navItems.push({
+  //           to: '/dash/files/'+userData[i1].folder_title+'/'+userData[i1].folder_id ,
+  //           name: userData[i1].folder_title,
+  //           exact:true,
+  //           Icon: numbers[i1],
+  //           });
+  //           console.log(navItems[i1].to)
+  //           i1--;
 
-          };
-        })
-      .catch((error)=>console.log(error));
-    })
-    .catch((err)=> console.log(err))
-  }
+  //         };
+  //       })
+  //     .catch((error)=>console.log(error));
+  //   })
+  //   .catch((err)=> console.log(err))
+  // }
 
   
     return (

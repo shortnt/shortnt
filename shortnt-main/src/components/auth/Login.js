@@ -113,6 +113,7 @@ const handleChange = (event) => {
 const handleSubmit = async (event) => {
   event.preventDefault()
   setSubmit(cred);
+  console.log(cred)
   const res = await fetch(process.env.REACT_APP_API+'loginuser/',{
     method : 'POST',
     body : JSON.stringify(cred),
@@ -122,6 +123,7 @@ const handleSubmit = async (event) => {
   });
 
   const data1 = await res.json();
+  console.log(data1)
   if (data1 === "Failed"){
     alert("Invalid Credentials !!");
     setLoginData(null);
@@ -237,7 +239,7 @@ const handleSuccess = async (data) => {
                 <Input type="password" placeholder="Password" value={cred.password} name="password" onChange={handleChange} required/>
                 <SubmitButton type="submit">
                   <LoginIcon className="icon" />
-                  <span className="text">Sign Ins</span>
+                  <span className="text">Sign in</span>
                 </SubmitButton>
               </Form>
               <p tw="mt-6 text-xs text-gray-600 text-center">

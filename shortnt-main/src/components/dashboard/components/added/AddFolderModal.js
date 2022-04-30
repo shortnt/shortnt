@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
+import { Brightness1 } from '@material-ui/icons';
 
 const AddFolderModal = (props) => {
   // state = {
@@ -52,7 +53,12 @@ const AddFolderModal = (props) => {
   };
 
   const handleChange = (event) => {
-    setTitle(event.target.value);
+    if(event.target.value.length>15){
+      alert("length exceded")
+    }
+    else{
+      setTitle(event.target.value);
+    }
   }
 
   const onAddFolder = (event) => {
