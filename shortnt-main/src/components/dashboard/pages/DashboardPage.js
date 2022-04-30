@@ -11,6 +11,7 @@ import AddFolderModal from '../components/added/AddFolderModal'
 import FilesComponent from '../components/added/FilesComponent';
 import TextField from '@mui/material/TextField';
 
+
 import {
   avatarsData,
   chartjs,
@@ -253,6 +254,7 @@ const DashboardPage = () => {
               style={{
                 height: 200,
                 width: 300,
+                color: "white",
                 backgroundColor : '#4299E1',
                 
               }}

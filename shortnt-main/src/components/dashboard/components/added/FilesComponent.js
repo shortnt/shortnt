@@ -14,7 +14,9 @@ import AddFileModal from './AddFileModal';
 import AddFolderModal from './AddFolderModal'
 import Add from '@material-ui/icons/Add';
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
-
+import LaunchIcon from '@material-ui/icons/Launch';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -63,12 +65,14 @@ const useStyles = makeStyles({
     marginRight: 30,
     display: 'flex',
     flexDirection: 'row',
+
     justifyContent: 'space-around',
     '@media (max-width: 500px)': {
       backgroundColor: 'green',
       flexDirection: 'column',
       marginLeft: '10px',
       marginRight: '10px',
+      
     },
     // alignItems: 'center',
 
@@ -504,7 +508,7 @@ const FilesComponent = (props) => {
       >
               <h1 style={{ textAlign: "center" }}>{title}</h1>
                  <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-               <TextField id="standard-basic" label="Search..." variant="standard" 
+               <TextField id="standard-basic" label="Search..." variant="outlined" 
                   onChange={(event)=>{
                       setsearchTerm(event.target.value)
                   }} 
@@ -724,6 +728,7 @@ const FilesComponent = (props) => {
           </CloseModalButton>
         </StyledModal>
 
+        <div style={{margin: "0 auto",}}>
 
         {displayData
         .filter((val)=>{
@@ -735,8 +740,9 @@ const FilesComponent = (props) => {
           })
         .map((val, index) => (
 
-          <Card className={classes.root} key={index} style={{ backgroundColor: "rgb(184 221 255", }}>
-            <CardContent>
+          <Card className={classes.root} key={index} style={{ backgroundColor: "rgb(66, 153, 225)",
+          color: "white", borderRadius:"5px",}}>
+            <CardContent >
 
               <Typography variant="h5" component="h2" style={{}}>
                 {index + 1}
@@ -751,22 +757,28 @@ const FilesComponent = (props) => {
             <CardActions style={{}}>
               <Button size="small"
                 style={{
-                  backgroundColor: '#3182ce',
-                  color: "white",
+                  backgroundColor: 'white',
+                  color: "#3182ce",
+                  border: "1.5px solid black",
                 }}
                 onClick={(event) => { openFile(event, displayData[index]) }}
+                endIcon={<FileOpenIcon/>}
               >Open</Button>
               <Button size="small"
                 style={{
                   backgroundColor: '#ff3f3fdb',
                   color: "white",
-                  marginLeft:'22px'
+                  marginLeft:'22px',
+                  border: "1.5px solid black",
                 }}
                 onClick={(event) => { deleteFile(event, displayData[index]) }}
+                endIcon={<DeleteIcon/>}
               >Delete</Button>
             </CardActions>
           </Card>
         ))}
+        </div>
+
         {/* ====================== This is open file modal ================================== */}
         <Modal
           open={showFile}
